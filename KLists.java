@@ -1,9 +1,9 @@
 import java.util.List;
 public class KLists{
 	//double[][] klists= {{1.1,4.4,5.5},{1.1,3.3,4.4},{2.2,6.6,8.8}}; //8.8 doesn't belong but wanted to make it work with eqaul size strings
-
 	public double[] mergeKLists (double[][] outerArray){
 		//count will be used to get the size of the sorted array & increment target index
+		//make a helper function (later)
 		int count = 0;
 		for(int i=0; i<outerArray.length; i++){
 			for(int j=0; j<outerArray[i].length; j++){
@@ -11,39 +11,44 @@ public class KLists{
 			}
 		}
 		//System.out.println("Count = " +count);
+		
 		double[] sorted = new double[count];
 		int[] indexO = new int[outerArray.length];
 		int target_index = 0;
 
-		for(int i=0; i<indexO.length-1; i++){
-			while(outerArray[i].length > indexO[i] && outerArray[i+1].length > indexO[i]){
-				if(outerArray[i][i]< outerArray[i+1][i]){
-					//smallest = outerArray[i][i];
-					sorted[target_index] = outerArray[i][i];
-				}
-				indexO[i] +=1;
-				target_index++;
-
-			}
-		}
 		
-		/*
-		Loop through the first item of every inner array
-		Compare and identify the smallest value, assign it to sorted
-		*/
-		// for(int i=0; i<outerArray.length-1;i++){
-		// 	int j=0;
-		// 	if(outerArray[i][j]< outerArray[i+1][j])
-		// 		smallest = outerArray[i][j] ;
-		// }
+		//while(sorted.length > target_index){
+			// for(int i=0; i<indexO.length-1; i++){	
+			// 	sorted[target_index] = getSortedIndex(outerArray, indexO);
+			// 	target_index++;
+			// }
+		//}
+		for(int i=0; i<indexO.length-1; i++){
+			while(indexO[i] < outerArray[i].length && indexO[i+1] < outerArray[i+1].length)	
+				//if(outerArray[i].length)
+				sorted[target_index] = getSortedIndex(outerArray, indexO, i);
+				target_index++;
+			}
+		
+			// while(outerArray[i].length > indexO[i] && outerArray[i+1].length > indexO[i]){
+			// if(outerArray[i][i]< outerArray[i+1][i]){
+			// 	//smallest = outerArray[i][i];
+			// 	sorted[target_index] = outerArray[i][i];
+			// }
+			// indexO[i] +=1;
+			// target_index++;
+
+			// }
 		return sorted;
 	}
-	public double sortedIndex(double[][] outerArray, int[] index0){
-		double smallest= outerArray[0][0];
+	public double getSortedIndex(double[][] outerArray, int[] indexO, int k){
+		//int k=0;
+		double smallest= outerArray[0][indexO[0]];
 		for(int i=0; i<indexO.length; i++){
-			if(index[i] < outerArray[i].length && outerArray[i][index[i]]< smallest)
-				smallest = outerArray[i][index[i]];
+			if(indexO[i] < outerArray[i].length && outerArray[i][indexO[i]]< smallest)
+				smallest = outerArray[i][indexO[i]];	
 		}
+		//k++;
 		return smallest;
 	}
 	// public String toString(){
